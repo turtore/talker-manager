@@ -23,8 +23,25 @@ app.get('/talker', (req, res) => {
         console.error(`Não foi possível ler o arquivo ${talkerFile}\n Erro: ${err}`);
         process.exit(1);
       }
-      res.status(200).send(data);    
+      res.status(200).send(JSON.parse(data));    
     });
+});
+
+// requisito 2
+app.get('/talker/:id', (req, res) => {
+  fs.readFile(talkerFile, 'utf8', (err, data) => {
+   if (err) {
+     console.error(`Não foi possível ler o arquivo ${talkerFile}\n Erro: ${err}`);
+     process.exit(1);
+   }
+  const { id } = req.params;
+  const person = JSON.parse(data).find((t) => t.id === parseInt(id, 10));
+  console.log(data);
+  
+  if (!person) return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+  
+  res.status(200).send(person);   
+ });
 });
 
 app.listen(PORT, () => {
