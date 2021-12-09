@@ -36,13 +36,17 @@ app.get('/talker/:id', (req, res) => {
    }
   const { id } = req.params;
   const person = JSON.parse(data).find((t) => t.id === parseInt(id, 10));
-  console.log(data);
   
   if (!person) return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   
   res.status(200).send(person);   
  });
 });
+
+// requisito 3
+app.post('/login/', (req, res) => {
+
+})
 
 app.listen(PORT, () => {
   console.log('Online');
