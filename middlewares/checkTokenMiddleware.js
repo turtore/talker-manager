@@ -1,10 +1,12 @@
 const checktokenMiddleware = (req, res, next) => {
     const { token } = req.headers.authorization;
+    // console.log(token);
 
-    // if (token === undefined) {
+    // if (!token) {
     //     return res.status(401).json({ message: 'Token não encontrado' });
     // }
-    if (token === undefined || token.length !== 16) {
+
+    if (!token || token.length < 16) {
         return res.status(401).json({ message: 'Token inválido' });
    }
     next();

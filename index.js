@@ -11,11 +11,12 @@ const fs = require('fs');
 const loginMiddleware = require('./middlewares/loginMiddleware');
 const tokenMiddleware = require('./middlewares/tokenMiddleware');
 const passwordMiddleware = require('./middlewares/passwordMiddleware');
-const talkerMiddleware = require('./middlewares/talkerMiddleware');
+const addTalkerMiddleware = require('./middlewares/addTalkerMiddleware');
 const checktokenMiddleware = require('./middlewares/checkTokenMiddleware');
 const checkNameMiddleware = require('./middlewares/checkNameMiddleware');
 const checkAgeMiddleware = require('./middlewares/checkAgeMiddleware');
 const checkTalkMiddleware = require('./middlewares/checkTalkMiddleware');
+const checkDateRateMiddleware = require('./middlewares/checkDateRateMiddleware');
 
 const talkerFile = 'talker.json';
 
@@ -55,11 +56,15 @@ app.get('/talker/:id', (req, res) => {
 app.post('/login', loginMiddleware, passwordMiddleware, tokenMiddleware);
 
 // requisito 4, criado checktokenMiddleware, criado talkerMiddleware
-app.post('/talker', checkNameMiddleware, 
+app.post('/talker', 
+checkNameMiddleware, 
 checkAgeMiddleware, 
-checktokenMiddleware,
 checkTalkMiddleware,
-talkerMiddleware);
+checkDateRateMiddleware,
+checktokenMiddleware,
+addTalkerMiddleware);
+
+// requisito 5
 
 app.listen(PORT, () => {
   console.log('Online');

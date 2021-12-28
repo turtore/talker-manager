@@ -1,7 +1,8 @@
 const checkAgeMiddleware = (req, res, next) => {
     const { age } = req.body;
+    // console.log(age);
 
-    if (!Number.isInteger(age)) {
+    if (!age) {
         return res.status(400).json({ message: 'O campo "age" é obrigatório' });
     }
     if (age < 18) {
