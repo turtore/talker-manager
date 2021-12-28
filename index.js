@@ -57,11 +57,11 @@ app.post('/login', loginMiddleware, passwordMiddleware, tokenMiddleware);
 
 // requisito 4, criado checktokenMiddleware, criado talkerMiddleware
 app.post('/talker', 
+checktokenMiddleware,
 checkNameMiddleware, 
 checkAgeMiddleware, 
 checkTalkMiddleware,
 checkDateRateMiddleware,
-checktokenMiddleware,
 addTalkerMiddleware);
 
 // requisito 5
