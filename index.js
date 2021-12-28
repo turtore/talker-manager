@@ -8,6 +8,9 @@ const HTTP_OK_STATUS = 200;
 const PORT = '3000';
 // entradas
 const fs = require('fs');
+const loginMiddleware = require('./middlewares/loginMiddleware');
+const tokenMiddleware = require('./middlewares/tokenMiddleware');
+const passwordMiddleware = require('./middlewares/passwordMiddleware');
 
 const talkerFile = 'talker.json';
 
@@ -43,10 +46,8 @@ app.get('/talker/:id', (req, res) => {
  });
 });
 
-// requisito 3
-app.post('/login/', (req, res) => {
-
-})
+// requisito 3, criado middleware chamado loginMiddleware e outro middleware chamado tokenMiddleware
+app.post('/login', loginMiddleware, passwordMiddleware, tokenMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');
