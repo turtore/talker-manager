@@ -5,17 +5,12 @@ const deleteTalkerMiddleware = (req, res, _next) => {
 
       const { id } = req.params;
       // console.log(id);
-      
-      const { name, age, talk } = req.body;
-      console.log(talk);
-      const editTalker = { id: Number(id), name, age, talk };
-    //   const editedTalkers = talkers.map((talker) => { //       console.log(talker);  //     if (talker.id === editTalker.id) {   //         return editTalker;
-    //     }
-    //     return talker;
-    // });
-    // console.log(talkers);
-    // fs.writeFileSync('./talker.json', JSON.stringify(editedTalkers));
-    return res.status(200).json(editTalker);
+      const toBeDeleted = talkers.findIndex((talker) => talker.id === id);
+      talkers.splice(toBeDeleted, 1);
+      fs.writeFileSync('./talker.json', JSON.stringify(talkers));
+      console.log(talkers);
+
+      return res.status(200).json({ message: 'Pessoa palestrante deletada com sucesso' });
 };
 
 module.exports = deleteTalkerMiddleware;

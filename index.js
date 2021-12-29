@@ -18,6 +18,7 @@ const checkAgeMiddleware = require('./middlewares/checkAgeMiddleware');
 const checkTalkMiddleware = require('./middlewares/checkTalkMiddleware');
 const checkDateRateMiddleware = require('./middlewares/checkDateRateMiddleware');
 const editTalkerMiddleware = require('./middlewares/editTalkerMiddleware');
+const deleteTalkerMiddleware = require('./middlewares/deleteTalkerMiddleware');
 
 const talkerFile = 'talker.json';
 
@@ -75,8 +76,9 @@ checkDateRateMiddleware,
 editTalkerMiddleware);
 
 // requisito 6
-app.delete('/taler/:id',
-checktokenMiddleware);
+app.delete('/talker/:id',
+checktokenMiddleware,
+deleteTalkerMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');
