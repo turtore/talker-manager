@@ -17,6 +17,7 @@ const checkNameMiddleware = require('./middlewares/checkNameMiddleware');
 const checkAgeMiddleware = require('./middlewares/checkAgeMiddleware');
 const checkTalkMiddleware = require('./middlewares/checkTalkMiddleware');
 const checkDateRateMiddleware = require('./middlewares/checkDateRateMiddleware');
+const editTalkerMiddleware = require('./middlewares/editTalkerMiddleware');
 
 const talkerFile = 'talker.json';
 
@@ -55,7 +56,7 @@ app.get('/talker/:id', (req, res) => {
 // requisito 3, criado middleware chamado loginMiddleware para verificar username, passwordMiddleware para senha e outro middleware chamado tokenMiddleware para enviar o token
 app.post('/login', loginMiddleware, passwordMiddleware, tokenMiddleware);
 
-// requisito 4, criado checktokenMiddleware, criado talkerMiddleware
+// requisito 4
 app.post('/talker', 
 checktokenMiddleware,
 checkNameMiddleware, 
@@ -65,6 +66,17 @@ checkDateRateMiddleware,
 addTalkerMiddleware);
 
 // requisito 5
+app.put('/talker/:id', 
+checktokenMiddleware,
+checkNameMiddleware,
+checkAgeMiddleware, 
+checkTalkMiddleware,
+checkDateRateMiddleware,
+editTalkerMiddleware);
+
+// requisito 6
+app.delete('/taler/:id',
+checktokenMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');

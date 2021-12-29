@@ -3,7 +3,6 @@ const checktokenMiddleware = (req, res, next) => {
     // console.log(authorization);
 
     if (!authorization || authorization === undefined) {
-        console.log('nao encontrado');
         return res.status(401).json({ message: 'Token não encontrado' });
     }
 
