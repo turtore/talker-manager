@@ -19,6 +19,7 @@ const checkTalkMiddleware = require('./middlewares/checkTalkMiddleware');
 const checkDateRateMiddleware = require('./middlewares/checkDateRateMiddleware');
 const editTalkerMiddleware = require('./middlewares/editTalkerMiddleware');
 const deleteTalkerMiddleware = require('./middlewares/deleteTalkerMiddleware');
+const searchTalkerMiddleware = require('./middlewares/searchTalkerMiddleware');
 
 const talkerFile = 'talker.json';
 
@@ -26,6 +27,11 @@ const talkerFile = 'talker.json';
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
+
+// requisito 7
+app.get('/talker/search', 
+checktokenMiddleware,
+searchTalkerMiddleware);
 
 // requisito 1
 app.get('/talker', (req, res) => {
@@ -36,12 +42,12 @@ app.get('/talker', (req, res) => {
       }
       res.status(200).send(JSON.parse(data));    
     });
-});
-
-// requisito 2
-app.get('/talker/:id', (req, res) => {
-  fs.readFile(talkerFile, 'utf8', (err, data) => {
-   if (err) {
+  });
+  
+  // requisito 2
+  app.get('/talker/:id', (req, res) => {
+    fs.readFile(talkerFile, 'utf8', (err, data) => {
+      if (err) {
      console.error(`Não foi possível ler o arquivo ${talkerFile}\n Erro: ${err}`);
      process.exit(1);
    }
@@ -80,6 +86,7 @@ app.delete('/talker/:id',
 checktokenMiddleware,
 deleteTalkerMiddleware);
 
+// requisito 7 precisa de prioridade na query
 app.listen(PORT, () => {
   console.log('Online');
 });
